@@ -1,0 +1,27 @@
+services:
+  describer:
+    build:
+      context: services/describer
+    healthcheck:
+      interval: 3s
+      retries: 4
+      start_period: 5s
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost/
+      timeout: 2s
+  web:
+    build:
+      context: services/web
+    depends_on:
+      describer:
+        condition: service_healthy
+    ports:
+    - published: 8080
+      target: 80
+
+# docker-compose up --build
+# http://localhost:8080
+# docker-compose down --rmi=local
