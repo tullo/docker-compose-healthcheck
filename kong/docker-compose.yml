@@ -2,7 +2,7 @@
 
 services:
   kong-database:
-    image: postgres:16.0
+    image: postgres:16.1
     container_name: kong-postgres
     environment:
       - POSTGRES_USER=kong
